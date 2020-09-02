@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wjzZa3WHnjQhBvtAiUsNAxCT+R58fcN04exmNza+dVKq123TDcR3ZR+Hj1DdAnVUVJltb2fwesmC0SUfjHDp8g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\thelittlecitizen16\\source\\repos\\PingPong\\PingPongClientTcp\\PingPongClientTcp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\thelittlecitizen16\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
