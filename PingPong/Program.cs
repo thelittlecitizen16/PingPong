@@ -10,7 +10,7 @@ namespace PingPong
         static void Main(string[] args)
         {
             try
-            { 
+            {
                 IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
                 IPAddress ipAddr = ipHost.AddressList[0];
                 IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 11111);
@@ -24,28 +24,32 @@ namespace PingPong
                     sender.Connect(localEndPoint);
                     Console.WriteLine("Socket connected to -> {0} ",
                               sender.RemoteEndPoint.ToString());
-                    while (true)
+                    bool endConnection = false;
+                    while (!endConnection)
                     {
-                        Console.WriteLine("enter message to server");
+                        Console.WriteLine("enter message to server, if you wand to end connection enter: 0");
                         string message = Console.ReadLine();
+                        if (message == "0")
+                        {
+                            endConnection = true;
+                        }
+                        else
+                        {
+                            byte[] messageSent = Encoding.ASCII.GetBytes(message);
+                            int byteSent = sender.Send(messageSent);
 
-                        byte[] messageSent = Encoding.ASCII.GetBytes(message);
-                        int byteSent = sender.Send(messageSent);
+                            byte[] messageReceived = new byte[1024];
 
-                        byte[] messageReceived = new byte[1024];
+                            int byteRecv = sender.Receive(messageReceived);
+                            Console.WriteLine("Message from Server -> {0}",
+                                  Encoding.ASCII.GetString(messageReceived,
+                                                             0, byteRecv));
+                        }
 
-                        int byteRecv = sender.Receive(messageReceived);
-                        Console.WriteLine("Message from Server -> {0}",
-                              Encoding.ASCII.GetString(messageReceived,
-                                                         0, byteRecv));
                     }
-                
-                    
 
-                    // Close Socket using  
-                    // the method Close() 
-                   // sender.Shutdown(SocketShutdown.Both);
-                    //sender.Close();
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
                 }
                 catch (ArgumentNullException ane)
                 {
@@ -70,7 +74,8 @@ namespace PingPong
 
                 Console.WriteLine(e.ToString());
             }
-            Console.WriteLine("Hello World!");
+
+            Console.WriteLine("End");
         }
     }
 }
