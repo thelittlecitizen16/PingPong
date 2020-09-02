@@ -24,11 +24,13 @@ namespace PingPong
                     sender.Connect(localEndPoint);
                     Console.WriteLine("Socket connected to -> {0} ",
                               sender.RemoteEndPoint.ToString());
+
                     bool endConnection = false;
                     while (!endConnection)
                     {
                         Console.WriteLine("enter message to server, if you wand to end connection enter: 0");
                         string message = Console.ReadLine();
+
                         if (message == "0")
                         {
                             endConnection = true;
@@ -47,9 +49,6 @@ namespace PingPong
                         }
 
                     }
-
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
                 }
                 catch (ArgumentNullException ane)
                 {
